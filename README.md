@@ -12,3 +12,7 @@ There are 3 important folders which contain the table and run files needed to re
 
 
 Note that each of these 3 folders also has its own Readme file containing the same information as above.
+
+If the user would like to run all the tables at once they can just run the file "allTables_No_Time_Limit.m". Each of the 10 table files is called by this main file so it generates the 10 tables in the paper. Note this file does not have an option to set a time limit for each of the table files.
+
+If the user would like to run all 10 tables at once and specify a time limit the call to each script they can just run "allTables_Time_Limit.m". Currently the default for the call to each script is just 10 seconds. The user should set something much larger than 10 seconds to ensure each of the table files finish running (a time limit of somewhere between 3 to 5 hours for each script would be best).

@@ -1,18 +1,36 @@
 %%%%%%%%%Table File for Suite Sparse Stan vs Us vs Us Simplex
 clc
-clear 
+clear
 close all
 
 addpath(genpath('..'))
-addpath /Users/arneshsujanani/Documents/mosek/11.1/toolbox/r2022b 
-addpath('/Users/arneshsujanani/Documents/mosek/11.1/tools/platform/osxaarch64/bin')
-addpath /Users/arneshsujanani/mosek
+
+% addpath /Users/arneshsujanani/Documents/mosek/11.1/toolbox/r2022b
+% addpath('/Users/arneshsujanani/Documents/mosek/11.1/tools/platform/osxaarch64/bin')
+% addpath /Users/arneshsujanani/mosek
+
+%% Check that CVX is available
+if exist('cvx_begin','file') ~= 2
+    error(['CVX is not on the MATLAB path. ', ...
+        'Please install CVX and run cvx_setup once before running this file.']);
+end
+
+%% Check that MOSEK is available through CVX
+try
+    cvx_solver mosek
+catch ME
+    error(['CVX is installed, but MOSEK is not available through CVX. ', ...
+        'Run the following once in MATLAB: ', ...
+        'cvx_setup; cvx_solver mosek; cvx_save_prefs. ', ...
+        'Original error: %s'], ME.message);
+end
+
 
 starttable = tic;
 profilechoice = false;
 if profilechoice && ispc
-	profile clear
-	profile on
+    profile clear
+    profile on
 end
 fprintf('\nStarting SuiteSparse Stan vs Our Two Subgrad Methods\n')
 
@@ -37,7 +55,7 @@ paramsUsSimp.tolerance=1e-4;
 paramsUsSimp.maxitermain=500;
 
 paramsStan.ptype = 'R';
-paramsStan.perturb = true; 
+paramsStan.perturb = true;
 
 paramsSub.ptype='S';
 paramsSub.method="SDP";
@@ -46,7 +64,7 @@ paramsSub.method="SDP";
 run_for_table_1(datavec,paramsUs,optionsUs,paramsStan,paramsUsSimp, paramsSub, filename)
 
 if profilechoice && ispc
-	profile report
+    profile report
 end
 endtable = toc(starttable);
 fprintf('total time table file %g\n',endtable)
