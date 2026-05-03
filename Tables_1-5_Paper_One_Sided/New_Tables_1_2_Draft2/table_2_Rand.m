@@ -1,31 +1,13 @@
-%%%%%%%%%Table File: Compare Random Instances Minimizing Kappa Among the 4
-%%%%%%%%%Codes
-%%%%%%%%
-clc
+%%%%%%%%%Table 2 Rand File
 clear 
 close all
 
 addpath(genpath('..'))
-% addpath /Users/arneshsujanani/Documents/mosek/11.1/toolbox/r2022b 
-% addpath('/Users/arneshsujanani/Documents/mosek/11.1/tools/platform/osxaarch64/bin')
-% addpath /Users/arneshsujanani/mosek
 
-%% Check that CVX is available
-if exist('cvx_begin','file') ~= 2
-    error(['CVX is not on the MATLAB path. ', ...
-           'Please install CVX and run cvx_setup once before running this file.']);
+%%%%%%%%%Check if CVX is available.
+if ~exist('det_rootn')
+	cvx_setup
 end
-
-%% Check that MOSEK is available through CVX
-try
-    cvx_solver mosek
-catch ME
-    error(['CVX is installed, but MOSEK is not available through CVX. ', ...
-           'Run the following once in MATLAB: ', ...
-           'cvx_setup; cvx_solver mosek; cvx_save_prefs. ', ...
-           'Original error: %s'], ME.message);
-end
-
 
 
 starttable = tic;
@@ -34,12 +16,12 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting Random Stan vs Our Two Subgrad Method\n')
+fprintf('\nStarting table_2_Rand\n')
 
 
+%%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
 dimvec=2000:500:15000;
-% dimvec=2000:500:5000;
 seedvec=1:length(dimvec);
 seedvec=seedvec*5;
 
@@ -61,7 +43,6 @@ paramsStan.perturb = true;
 paramsSub.ptype='S';
 paramsSub.method="SDP";
 
-%%%
 %%Call Run File
 run_for_table_2(dimvec,seedvec,paramsUs,optionsUs,paramsStan,paramsUsSimp,paramsSub,filename)
 
@@ -70,4 +51,5 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
+fprintf('\nEnding table_2_Rand\n')
 fprintf('total time table file %g\n',endtable)

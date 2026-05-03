@@ -1,7 +1,5 @@
 function run_for_table_8(datavec,seedvec,optionsOurSolver,optionsLSQR, filename)
 
-addpath(genpath('..'))
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%Two-Sided Comparison between our code and stanford group's code
@@ -42,50 +40,57 @@ A_LSQR_iter=zeros(numofProblems,1);
 
 
 for i=1:numofProblems
-
-%%%%Generate/Get Problem
- load(datavec(i));
- A=Problem.A;
- n=size(A,2);
-
-
-rng(seedvec(i));
-b=randn(n,1);
-omegaa = @(M)(  (trace(M'*M)/n)/(det_rootn(M'*M))  );
-
-%%%%Save Dimensions, Densities,Omega
-dimA(i)=n;
-densityA(i)=nnz(A)/numel(A);
-omegaA(i)=omegaa(A);
+    startgen=tic;
+    %%%%Generate/Get Problem
+    load(datavec(i));
+    A=Problem.A;
+    n=size(A,2);
 
 
+    rng(seedvec(i));
+    b=randn(n,1);
+    omegaa = @(M)(  (trace(M'*M)/n)/(det_rootn(M'*M))  );
 
-%%%%Run Our Code
-[csqs,dsqs,output] = Solver_Alt_TwoSided(A,optionsOurSolver);
-US_prec_time(i)=output.time;
+    %%%%Save Dimensions, Densities,Omega
+    dimA(i)=n;
+    densityA(i)=nnz(A)/numel(A);
 
-M1 = spdiags(csqs,0,n,n);
-M2 = spdiags(dsqs,0,n,n);
-M1AM2=M1\A/M2;
+    endgen=toc(startgen);
 
-%%%Compute Ratio of Omega Values
-omega_USDividedA(i)=omegaa(M1AM2)/omegaa(A);
+    fprintf('\nNEW prob: time to gen = %g; size n =%i; density %g \n', ...
+        endgen,dimA(i),densityA(i))
 
-%%%%Solve LSQR: Compare Our Preconditioner vs Theirs
-tic
-[x2,flag2,relres2,iter2] = lsqr(( M1\A/M2) , M1\b, optionsLSQR.tolsqr, optionsLSQR.maxitlsqr, ...
-	          speye(n), speye(n));
-US_LSQR_time(i)=toc;
 
-tic
-[x3,flag3,relres3,iter3] = lsqr((A) , b, optionsLSQR.tolsqr, optionsLSQR.maxitlsqr, ...
-	          speye(n), speye(n));
-None_LSQR_time(i)=toc;
+    omegaA(i)=omegaa(A);
 
-US_LSQR_iter(i)=iter2
-A_LSQR_iter(i)=iter3
 
-US_tot_time(i)=US_LSQR_time(i)+US_prec_time(i);
+
+    %%%%Run Our Code
+    [csqs,dsqs,output] = Solver_Alt_TwoSided(A,optionsOurSolver);
+    US_prec_time(i)=output.time;
+
+    M1 = spdiags(csqs,0,n,n);
+    M2 = spdiags(dsqs,0,n,n);
+    M1AM2=M1\A/M2;
+
+    %%%Compute Ratio of Omega Values
+    omega_USDividedA(i)=omegaa(M1AM2)/omegaa(A);
+
+    %%%%Solve LSQR: Compare Our Preconditioner vs Theirs
+    tic
+    [x2,flag2,relres2,iter2] = lsqr(( M1\A/M2) , M1\b, optionsLSQR.tolsqr, optionsLSQR.maxitlsqr, ...
+        speye(n), speye(n));
+    US_LSQR_time(i)=toc;
+
+    tic
+    [x3,flag3,relres3,iter3] = lsqr((A) , b, optionsLSQR.tolsqr, optionsLSQR.maxitlsqr, ...
+        speye(n), speye(n));
+    None_LSQR_time(i)=toc;
+
+    US_LSQR_iter(i)=iter2;
+    A_LSQR_iter(i)=iter3;
+
+    US_tot_time(i)=US_LSQR_time(i)+US_prec_time(i);
 
 end
 
@@ -113,7 +118,7 @@ fprintf(fid, '%s', [...
 fprintf(fid, fmt5);
 fprintf(fid, hfmt1, '$n$', 'density', '$\omega(A)$');
 fprintf(fid, hfmt3,'$\omega(S)/\omega(A)$','\Cref{alg:Two-Sided} CPU', ...
-     'No Prec', '\Cref{alg:Two-Sided}', 'No Prec', '\Cref{alg:Two-Sided}');
+    'No Prec', '\Cref{alg:Two-Sided}', 'No Prec', '\Cref{alg:Two-Sided}');
 fprintf(fid, fmt4);
 
 for k=1:numofProblems
@@ -125,7 +130,7 @@ fprintf(fid, '\\end{tabular}\n');
 
 fclose(fid);
 
-system(['cat ', filename]);
+type(filename)
 
 
 end

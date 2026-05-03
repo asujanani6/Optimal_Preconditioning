@@ -1,15 +1,19 @@
-%%%%%%%%%Table File for Opt Kappa vs Jacobi (Sparse Case)
+%%%%%%%%%Table 10 PCG Linux File
 %%% construct an A that is kappa diag-scaling optimal
 %%% form J using A that is omega diag-scaling optimal
 %%%       to be run on fastlinux server
 %cpu155.math.private 	Dell PowerEdge R650 	Two Intel Xeon Gold 6334 8-core 3.6 GHz (Ice Lake) 	256 GB
 %%%%%%%%
 
-clc
 clear 
 close all
 
 addpath(genpath('.'))
+
+%%%%%%%%%Check if CVX is available.
+if ~exist('det_rootn')
+	cvx_setup
+end
 
 starttable = tic;
 profilechoice = true;
@@ -17,13 +21,14 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting OptKappaSparse tests\n')
+fprintf('\nStarting table_10_PCG_Linux\n')
 
 
 %%%% SetTolerance for PCG
 params.tol = 1e-7;
 params.maxiter = 1e4;
 
+%%%%Load/Generate Problem Instances
 %%Specify Seeds and densities (for sparse Opt Kappa A)
 if ispc
 	fprintf('Since a PC, SMALL size problems are being used\n')
@@ -61,4 +66,5 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
+fprintf('\nEnding table_10_PCG_Linux\n')
 fprintf('total time table file %g\n',endtable)

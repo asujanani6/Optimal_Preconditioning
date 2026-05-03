@@ -130,13 +130,13 @@ fid = fopen(filename, 'w');
 
 fprintf(fid, '%s\n', '\begin{tabular}{|ccc|cc|cc|} \hline');
 fprintf(fid, '%s', [...
-    '\multicolumn{3}{|c||}{Dim \& Density, \& $\kappa(A)$} & ', ...
+    '\multicolumn{3}{|c||}{Dim \& Density, \& $\kappa(M)$} & ', ...
     '\multicolumn{2}{|c|}{\% Reduction in $\kappa$} & ', ...
     '\multicolumn{2}{|c|}{CPU Time}']);
 fprintf(fid, fmt5);
-fprintf(fid, hfmt1, '$n$', 'density', '$\kappa(A)$');
-fprintf(fid, hfmt3,'Alg 2.2','Alg. 3.1','Alg. 2.2', ...
-     'Alg 3.1');
+fprintf(fid, hfmt1, '$n$', 'density', '$\kappa(M)$');
+fprintf(fid, hfmt3,'\Cref{Subgrad V}','\Cref{alg:GDeplustVv}','\Cref{Subgrad V}', ...
+     '\Cref{alg:GDeplustVv}');
 fprintf(fid, fmt4);
 
 for k=1:numofProblems
@@ -148,7 +148,7 @@ fprintf(fid, '\\end{tabular}\n');
 
 fclose(fid);
 
-system(['cat ', filename]);
+type(filename)
 
 
 end

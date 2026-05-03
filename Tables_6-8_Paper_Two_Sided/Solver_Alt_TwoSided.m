@@ -55,7 +55,7 @@ output.iter=iter;
 
 
 
-fprintf('\n\nNEW: while ends with: max(norm(c-1),norm(d-1)) %g  iter %i\n', ...
+fprintf('\nTwo-Sided Sinkhorn finishes with: max(norm(c-1),norm(d-1)) %g  iter %i\n\n', ...
          maxnormones,iter)
 
 

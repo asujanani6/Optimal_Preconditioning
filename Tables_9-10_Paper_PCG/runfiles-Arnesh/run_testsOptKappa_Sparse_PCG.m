@@ -6,11 +6,6 @@ function run_testsOptKappa_Sparse_PCG(dimvec, seedvec, densityvec, numofInitialP
 %% function [A,b]=findoptkappaASparse(n,seed,density)
 
 
-%%    det_rootn(B) is used below so cvx is needed
-if ~exist('det_rootn')
-	cvx_setup
-end
-
 %%%Number of Problems is just number of dimensions inputted. Number of
 %%%dimensions should be same as number of seeds and number of densities
 numofProblems=length(dimvec);
@@ -203,12 +198,12 @@ fid = fopen(filename, 'w');
 fprintf(fid, '%s\n', '\begin{tabular}{|cc|cc|cc|cc|} \hline');
 fprintf(fid, '%s', [...
     '\multicolumn{2}{|c||}{Dim \& Density} & ', ...
-    '\multicolumn{2}{|c|}{Ratios in conds $(J,A)$ } & ', ...
-    '\multicolumn{2}{|c|}{$J$: $\omega$-opt of $A$} &', ...
-    '\multicolumn{2}{|c|}{Ratios A/J}']);
+    '\multicolumn{2}{|c|}{Ratios in conds $(J,M)$ } & ', ...
+    '\multicolumn{2}{|c|}{$J$: $\omega$-opt of $M$} &', ...
+    '\multicolumn{2}{|c|}{Ratios M/J}']);
 fprintf(fid, fmt5);
 fprintf(fid, hfmt1, '$n$', 'density');
-fprintf(fid, hfmt3,'$\kappa(J)/\kappa(A)  $', '$\omega(J)/\omega(A)  $', ...
+fprintf(fid, hfmt3,'$\kappa(J)/\kappa(M)  $', '$\omega(J)/\omega(M)  $', ...
     'iters', 'cpu', ...
     'iters', 'cpu');
 fprintf(fid, fmt4);
@@ -225,10 +220,7 @@ fprintf(fid, '\\end{tabular}\n');
 
 fclose(fid);
 
-system(['cat ', filename]);
-
-
-
+type(filename)
 
 end
 

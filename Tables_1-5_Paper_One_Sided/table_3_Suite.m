@@ -1,12 +1,13 @@
-%%%%%%%%%Table File for Minimizing Kappa on Large Instances: Comparison of
-%%%%%%%%%Our Two Codes
-%%%%%%%%
-
-clc
+%%%%%%%%%Table 3 Suite File
 clear 
 close all
 
 addpath(genpath('.'))
+
+%%%%%%%%%Check if CVX is available.
+if ~exist('det_rootn')
+	cvx_setup
+end
 
 starttable = tic;
 profilechoice = false;
@@ -14,13 +15,11 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting Our Two Subgrad Methods\n')
+fprintf('\nStarting table_3_Suite\n')
 
-
+%%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
 datavec= ["Pres_Poisson.mat", "bcsstk25.mat", "bcsstm25.mat", "gyro_m.mat", "gyro.mat", "bcsstk36.mat", "wathen100.mat", "wathen120.mat", "minsurfo.mat", "gridgena.mat", "G2_circuit.mat"];
-%datavec= ["Pres_Poisson.mat", "bcsstk25.mat", "gyro_m.mat", "gyro.mat", "bcsstk36.mat", "wathen100.mat", "wathen120.mat", "minsurfo.mat", "gridgena.mat", "G2_circuit.mat"];
-
 
 %%Filename for Table File
 filename = 'table_3_Suite.tex';
@@ -47,4 +46,5 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
+fprintf('\nEnding table_3_Suite\n')
 fprintf('total time table file %g\n',endtable)

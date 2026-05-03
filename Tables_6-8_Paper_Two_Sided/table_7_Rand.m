@@ -1,8 +1,24 @@
-%%%%Table File to compare Stanford vs US for Two-Sided LSQR Comp
+%%%%%%%%%Table 7 Rand File
+clear 
+close all
 
+addpath(genpath('..'))
 
+%%%%%%%%%Check if CVX is available.
+if ~exist('det_rootn')
+	cvx_setup
+end
+
+starttable = tic;
+profilechoice = false;
+if profilechoice && ispc
+	profile clear
+	profile on
+end
+fprintf('\nStarting table_7_Rand\n')
+
+%%%Load/Generate Problem Instances
 %%%Dim, Seed, Density, Reciprocal Condition Number
-% dimvec=linspace(100, 300, 21);
 dimvec=linspace(50, 300, 26);
 seedvec=1:length(dimvec);
 
@@ -25,6 +41,13 @@ optionsLSQR.maxitlsqr=5000;
 optionsLSQR.tolsqr=1e-8;
 
 %%%%
-filename='table_7_Rand.tex'
+filename='table_7_Rand.tex';
 
 run_for_table_7(dimvec,seedvec,densityvec,rcvec,optionsOurSolver,paramsStan,optionsLSQR,filename)
+
+if profilechoice && ispc
+	profile report
+end
+endtable = toc(starttable);
+fprintf('\nEnding table_7_Rand\n')
+fprintf('total time table file %g\n',endtable)

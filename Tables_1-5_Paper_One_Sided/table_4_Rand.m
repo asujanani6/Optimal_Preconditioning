@@ -1,12 +1,13 @@
-%%%%%%%%%Table File for Minimizing Kappa on Large Instances: Comparison of
-%%%%%%%%%Our Two Codes
-%%%%%%%%
-
-clc
+%%%%%%%%%Table 4 Rand File
 clear 
 close all
 
 addpath(genpath('.'))
+
+%%%%%%%%%Check if CVX is available.
+if ~exist('det_rootn')
+	cvx_setup
+end
 
 starttable = tic;
 profilechoice = false;
@@ -14,14 +15,11 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting Our Subgrad Method\n')
+fprintf('\nStarting table_4_Rand\n')
 
-
+%%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
-% dimvec=25000:15000:160000;
-%dimvec=[50000,60000,70000,80000,100000,110000,120000,130000,140000,150000];
 dimvec=50000:10000:150000;
-%dimvec=20000:10000:40000;
 seedvec=1:length(dimvec);
 
 %%Filename for Table File
@@ -49,4 +47,5 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
+fprintf('\nEnding table_4_Rand\n')
 fprintf('total time table file %g\n',endtable)

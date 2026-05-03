@@ -1,7 +1,5 @@
 function run_for_table_7(dimvec,seedvec,densityvec,rcvec,optionsOurSolver,paramsStan,optionsLSQR, filename)
 
-addpath(genpath('..'))
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%Two-Sided Comparison between our code and stanford group's code
@@ -45,7 +43,7 @@ Stan_LSQR_iter=zeros(numofProblems,1);
 
 
 for i=1:numofProblems
-
+startgen=tic;
 %%%%Generate/Get Problem
 rng(seedvec(i));
 n=dimvec(i);
@@ -56,6 +54,10 @@ omegaa = @(M)(  (trace(M'*M)/n)/(det_rootn(M'*M))  );
 %%%%Save Dimensions, Densities, Kappa, Omega
 dimA(i)=n;
 densityA(i)=nnz(A)/numel(A);
+
+endgen=toc(startgen);
+fprintf('\nNEW prob: time to gen = %g; size n =%i; density %g \n', ...
+        endgen,dimA(i),densityA(i))
 
 svdA=svd(full(A));
 kappaA(i)=max(svdA)/min(svdA);
@@ -107,8 +109,8 @@ tic
 	          speye(n), speye(n));
 Stan_LSQR_time(i)=toc;
 
-US_LSQR_iter(i)=iter2
-Stan_LSQR_iter(i)=iter3
+US_LSQR_iter(i)=iter2;
+Stan_LSQR_iter(i)=iter3;
 
 US_total_time(i)=US_prec_time(i)+US_LSQR_time(i);
 
@@ -154,7 +156,7 @@ fprintf(fid, '\\end{tabular}\n');
 
 fclose(fid);
 
-system(['cat ', filename]);
+type(filename)
 
 
 end

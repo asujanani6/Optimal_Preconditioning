@@ -1,11 +1,13 @@
-%%%%%%%%%Table File for PCG Comparsion: Us vs Stanford: Random
-%%%%%%%%
-
-clc
+%%%%%%%%%Table 5 PCG File
 clear 
 close all
 
 addpath(genpath('.'))
+
+%%%%%%%%%Check if CVX is available.
+if ~exist('det_rootn')
+	cvx_setup
+end
 
 starttable = tic;
 profilechoice = false;
@@ -13,11 +15,10 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting Random PCG Stan vs Our Subgrad Method\n')
+fprintf('\nStarting table_5_PCG\n')
 
-
+%%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
-%dimvec=1000:500:3000;
 dimvec=1000:300:15000;
 seedvec=1:length(dimvec);
 
@@ -40,4 +41,5 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
+fprintf('\nEnding table_5_PCG\n')
 fprintf('total time table file %g\n',endtable)
