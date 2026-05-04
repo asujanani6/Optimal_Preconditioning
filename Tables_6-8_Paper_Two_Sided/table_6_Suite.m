@@ -15,8 +15,6 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting table_6_Suite\n')
-
 
 %%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
@@ -39,7 +37,8 @@ optionsLSQR.tolsqr=1e-8;
 
 %%Filename for Table File
 filename='table_6_Suite.tex';
-
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
 
 run_for_table_6(datavec,seedvec,optionsOurSolver,paramsStan,optionsLSQR,filename)
 
@@ -47,5 +46,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_6_Suite\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

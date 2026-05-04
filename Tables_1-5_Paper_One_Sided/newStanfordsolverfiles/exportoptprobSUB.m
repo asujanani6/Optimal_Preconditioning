@@ -1,4 +1,4 @@
-function [sprob] = exportoptprob(prob, path, fname)
+function [sprob] = exportoptprobSUB(prob, path, fname)
 % Export an optimal preconditioning problem to sedumi file and write it to
 % local SDPA file. The SDPA writer comes from CSDP.
 

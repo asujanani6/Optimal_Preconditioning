@@ -58,6 +58,8 @@ numofInitialPoints=5;
 
 %%Filename for Table File
 filename = 'table_10_PCG_Linux.tex';
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
 
 %%Call Run File
 %[meanPCG_ratio_iter, meanPCG_ratio_time, densityA, condDiff, omegaDiff, dimA]= run_testsOptKappa_Sparse_PCG(dimvec,seedvec,densityvec,numofInitialPoints,params,filename);
@@ -66,5 +68,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_10_PCG_Linux\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

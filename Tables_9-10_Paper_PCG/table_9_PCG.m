@@ -15,7 +15,6 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting table_9_PCG\n')
 
 
 %%%% SetTolerance for PCG
@@ -36,6 +35,8 @@ numofInitialPoints=5;
 
 %%Filename for Table File
 filename = 'table_9_PCG.tex';
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
 
 %%Call Run File
 run_testsOptKappa_Sparse_PCG(dimvec,seedvec,densityvec,numofInitialPoints,params,filename);
@@ -45,5 +46,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_9_PCG\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

@@ -15,7 +15,6 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting table_7_Rand\n')
 
 %%%Load/Generate Problem Instances
 %%%Dim, Seed, Density, Reciprocal Condition Number
@@ -42,6 +41,8 @@ optionsLSQR.tolsqr=1e-8;
 
 %%%%
 filename='table_7_Rand.tex';
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
 
 run_for_table_7(dimvec,seedvec,densityvec,rcvec,optionsOurSolver,paramsStan,optionsLSQR,filename)
 
@@ -49,5 +50,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_7_Rand\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

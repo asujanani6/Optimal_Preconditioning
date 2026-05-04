@@ -1,4 +1,4 @@
-function [prob] = getoptprob(X, params)
+function [prob] = getoptprobSUB(X, params)
 % Build a problem structure describing a diagonal preconditioning problem
 % X      : m by n matrix
 % Parameters:

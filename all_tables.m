@@ -3,8 +3,8 @@ function all_tables()
 originalPath = path;
 
 scripts = {
-    'Tables_1-5_Paper_One_Sided/New_Tables_1_2_Draft2/table_1_Suite.m'
-    'Tables_1-5_Paper_One_Sided/New_Tables_1_2_Draft2/table_2_Rand.m'
+    'Tables_1-5_Paper_One_Sided/table_1_Suite.m'
+    'Tables_1-5_Paper_One_Sided/table_2_Rand.m'
     'Tables_1-5_Paper_One_Sided/table_3_Suite.m'
     'Tables_1-5_Paper_One_Sided/table_4_Rand.m'
     'Tables_1-5_Paper_One_Sided/table_5_PCG.m'

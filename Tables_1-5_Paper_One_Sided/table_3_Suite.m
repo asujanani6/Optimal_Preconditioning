@@ -15,7 +15,6 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting table_3_Suite\n')
 
 %%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
@@ -23,6 +22,8 @@ datavec= ["Pres_Poisson.mat", "bcsstk25.mat", "bcsstm25.mat", "gyro_m.mat", "gyr
 
 %%Filename for Table File
 filename = 'table_3_Suite.tex';
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
 
 paramsUs.tolerance=1e-4;
 paramsUs.maxitermain = 80;
@@ -46,5 +47,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_3_Suite\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

@@ -1,9 +1,9 @@
-function run_for_table_2(dimvec,seedvec,paramsUs,optionsUs,paramsStan,paramsUsSimp, paramsSub,filename)
+function run_for_table_1(datavec,paramsUs,optionsUs,paramsStan,paramsUsSimp, paramsSub, filename)
 
 %%%%%%Minimize kappa comparsion between our code and stanford group's code
 
 %%%Number of Problems is just number of dimensions inputted.
-numofProblems=length(dimvec);
+numofProblems=length(datavec);
 
 
 %%%%% vectors to save output. Reduction in Kappa: Us vs Stanford
@@ -41,19 +41,14 @@ dimA=zeros(numofProblems,1);
 kappaA=zeros(numofProblems,1);
 
 
-
 for i=1:numofProblems
 
     %%%Loading Problem
     startgen = tic;
 
-    rng(seedvec(i));
-
-    n=dimvec(i);
-    rc=1e-3/n;
-    density=(2/n)+(1/(n*log(n)));
-    A=sprandsym(n,density,rc,1);
-
+    load(datavec(i));
+    A=Problem.A;
+    n=size(A,2);
 
     %%%%Save densities and dimensions of A
     dimA(i)=n;
@@ -185,7 +180,7 @@ for i=1:numofProblems
 
     %%%%%%%%New for Revision: Subspace Code Testing
     paramsSub.subspace=[ones(n, 1), full(diag(A))];
-    DSprob = getoptprob(A, paramsSub);
+    DSprob = getoptprobSUB(A, paramsSub);
 
     tic
     DSopt = optprecondSUB(DSprob);
@@ -221,8 +216,9 @@ for i=1:numofProblems
 
 
 
-
 end
+
+
 
 
 %%%%Create LaTeX Table
@@ -266,3 +262,5 @@ fclose(fid);
 
 type(filename)
 
+
+end

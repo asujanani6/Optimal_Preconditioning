@@ -5,8 +5,9 @@ if nargin == 1
     ptype = 'L';
 end % End if
 
-[m, n] = size(X); %#ok
+[m, n] = size(X);
 if ptype == 'R'
+    assert(m == n);
     cvx_begin sdp quiet
     % cvx_solver sedumi
     cvx_solver_settings('maxit',50)
@@ -22,6 +23,7 @@ if ptype == 'R'
 elseif ptype == 'L'
     cvx_begin sdp quiet
     % cvx_solver sedumi
+    cvx_solver_settings('maxit',50)
     variable d(m, 1) nonnegative
     variable tau
     maximize tau

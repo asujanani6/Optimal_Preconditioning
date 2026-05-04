@@ -15,7 +15,6 @@ if profilechoice && ispc
 	profile clear
 	profile on
 end
-fprintf('\nStarting table_5_PCG\n')
 
 %%%Load/Generate Problem Instances
 %%%%%%%%%%%%%%%%%%%%%%
@@ -24,6 +23,9 @@ seedvec=1:length(dimvec);
 
 %%Filename for Table File
 filename = 'table_5_PCG.tex';
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
+
 
 paramsUs.tolerance=1e-4;
 paramsUs.maxitermain = 80;
@@ -41,5 +43,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_5_PCG\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

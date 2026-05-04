@@ -289,7 +289,7 @@ fprintf(fid, '\\end{tabular}\n');
 
 fclose(fid);
 
-system(['cat ', filename]);
+type(filename)
 
 
 

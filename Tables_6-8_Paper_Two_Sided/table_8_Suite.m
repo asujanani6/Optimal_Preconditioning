@@ -34,7 +34,10 @@ optionsLSQR.maxitlsqr=100000;
 optionsLSQR.tolsqr=1e-6;
 
 %%%%Filename for Table File
-filename='table_8_Suite.tex';
+% filename='table_8_Suite.tex';
+filename='test_table_8.tex';
+startdatetime = datetime;
+fprintf('\nStarting %s at %s\n',filename,startdatetime);
 
 run_for_table_8(datavec,seedvec,optionsOurSolver,optionsLSQR,filename)
 
@@ -42,5 +45,8 @@ if profilechoice && ispc
 	profile report
 end
 endtable = toc(starttable);
-fprintf('\nEnding table_8_Suite\n')
 fprintf('total time table file %g\n',endtable)
+enddatetime = datetime;
+fprintf('\nEnding %s at %s\n',filename,enddatetime)
+fprintf('\nStarting %s was at %s and ending at   %s\n', ...
+	    filename,startdatetime,enddatetime)

@@ -1,4 +1,10 @@
+as of may2/2026
+folder cleaned
+vec.m is included here due to path conflict with cvx and matlab toolbox
+utils folder here is from old Stanford package 
+whereas there is another utils folder in New_...1_2..f2 for new Stanford 
 
+----------------------------------------------------------------
 As of April 22, 2026
 This folder contains the table, tex, and run files for Tables 1-5 in the second draft (revision of the paper). The subfolder "New_Tables_1_2_Draft2" contains the table and run files for Tables 1-2. The table and run files for Tables 3-5 are contained directly in the folder. 
 
