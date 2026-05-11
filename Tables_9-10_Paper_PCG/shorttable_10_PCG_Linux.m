@@ -8,7 +8,7 @@
 clear 
 close all
 
-addpath(genpath('.'))
+addpath(genpath('..'))
 
 %%%%%%%%%Check if CVX is available.
 if ~exist('det_rootn')
@@ -40,16 +40,12 @@ if ispc
 	densityvec = max(densityvec,3./dimvec);
 else
 	fprintf('Since NOT a PC, linux exptected; LARGE size problems\n')
-	dimvec=50000:2000:90000;
-	seedvec=1:length(dimvec);
-	densityvec = linspace(1e-1,5*1e-4,length(dimvec));
-	densityvec = max(densityvec,3./dimvec);
-
-    % dimvec=50000:5000:70000;
+	% dimvec=60000:5000:120000;
 	% seedvec=1:length(dimvec);
-	% densityvec = linspace(1e-2,1e-3,length(dimvec));
-	% densityvec = max(densityvec,10./dimvec);
-
+	% densityvec=logspace(log10(9e-3),log10(3e-5),length(dimvec));
+    dimvec=60000;
+    seedvec=1;
+    densityvec=9e-3;
 end
 
 
@@ -63,7 +59,7 @@ numofInitialPoints=5;
 
 
 %%Filename for Table File
-filename = 'table_10_PCG_Linux.tex';
+filename = 'shorttable_10_PCG_Linux.tex';
 startdatetime = datetime;
 fprintf('\nStarting %s at %s\n',filename,startdatetime);
 

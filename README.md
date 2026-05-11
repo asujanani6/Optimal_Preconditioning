@@ -5,14 +5,21 @@ There are 3 important folders which contain the table and run files needed to re
 
 1. Folder "Tables_1-5_Paper_One_Sided" contains the table, tex, and run files for Tables 1-5 in the second draft (revision of the paper). The subfolder "New_Tables_1_2_Draft2" contains the table and run files for Tables 1-2. The table and run files for Tables 3-5 are contained directly in the folder.  For example, to reproduce the table_3_Suite.tex, the user just needs to run table_3_Suite.m. Likewise, to reproduce table_4_Rand.tex, the user just needs to run table_4_Rand.m etc. The table and run files that are not used in the second draft of the paper but were used in the first draft of the paper are contained in the subfolders "Old_PCG_Tables_Draft_1" and "Old_Tables_1_2_Draft1".
 
+    Some of these tables make take several days to generate/produce. If the user would like to just run a single instance from each table, they can run the shorttable.m files. For example, if the user would like to run one instance from table 1, they can run "shorttable_1_Suite.m". Likewise, if the user would like to a run just one instance from table 2, they can run "shorttable_2_Rand.m", etc.
+
 
 2. Folder "Tables_6-8_Paper_Two_Sided" contains the table, tex, and run files for Tables 6-8 in the second draft (revision of the paper). These tables contain the experiments for the two-sided optimal omega vs optimal kappa comparison. For example, to reproduce the table_6_Suite.tex, the user just needs to run table_6_Suite.m. Likewise, to reproduce table_7_Rand.tex, the user just needs to run table_7_Rand.m etc.
 
+    Some of these tables make take several days to generate/produce. If the user would like to just run a single instance from each table, they can run the shorttable.m files.
+
+
+
 3. Folder "Tables_9-10_Paper_PCG" contains the table, tex, and run files for Tables 9-10 in the second draft (revision of the paper). These tables contain the experiments for PCG comparison between optimal kappa and optimal omega. For example, to reproduce the table_9_PCG.tex, the user just needs to run table_9_PCG.m. Likewise, to reproduce table_10_PCG_Linux.tex, the user just needs to run table_10_PCG_Linux.m.
+
+    Some of these tables make take several days to generate/produce. If the user would like to just run a single instance, they can run the shorttable.m files.
 
 
 Note that each of these 3 folders also has its own Readme file containing the same information as above.
 
 If the user would like to run all the tables at once they can just run the file "allTables_No_Time_Limit.m". Each of the 10 table files is called by this main file so it generates the 10 tables in the paper. Note this file does not have an option to set a time limit for each of the table files.
 
-If the user would like to run all 10 tables at once and specify a time limit the call to each script they can just run "allTables_Time_Limit.m". Currently the default for the call to each script is just 10 seconds. The user should set something much larger than 10 seconds to ensure each of the table files finish running (a time limit of somewhere between 3 to 5 hours for each script would be best).
